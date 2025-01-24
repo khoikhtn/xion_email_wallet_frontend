@@ -1,6 +1,6 @@
 const BASE_URL = "https://56a5-27-73-97-28.ngrok-free.app";
 
-export const sendRequest = async <T>(endpoint: string, data: T): Promise<any> => {
+export const sendRequest = async <T, R>(endpoint: string, data: T): Promise<R> => {
   const url = `${BASE_URL}${endpoint}`;
   return fetch(url, {
     method: "POST",
@@ -11,27 +11,27 @@ export const sendRequest = async <T>(endpoint: string, data: T): Promise<any> =>
     body: JSON.stringify(data),
   }).then((res) => {
     if (!res.ok) throw new Error("Failed to send request");
-    return res.json();
+    return res.json() as Promise<R>;
   });
 };
 
-export const sendContactEmail = async (data: { email: string; appPassword: string }): Promise<any> => {
+export const sendContactEmail = async (data: { email: string; appPassword: string }): Promise<{ success: boolean }> => {
   return sendRequest("/send-email", data);
 };
 
-export const sendToken = async (data: { email: string; appPassword: string; recipient: string; amount: number }): Promise<any> => {
+export const sendToken = async (data: { email: string; appPassword: string; recipient: string; amount: number }): Promise<{ success: boolean }> => {
   return sendRequest("/send-token", data);
 };
 
-export const sendCW20 = async (data: { email: string; appPassword: string; recipient: string; contractAddress: string; amount: number }): Promise<any> => {
+export const sendCW20 = async (data: { email: string; appPassword: string; recipient: string; contractAddress: string; amount: number }): Promise<{ success: boolean }> => {
   return sendRequest("/send-cw20", data);
 };
 
-export const sendNFT = async (data: { email: string; appPassword: string; recipient: string; contractAddress: string; tokenId: string }): Promise<any> => {
+export const sendNFT = async (data: { email: string; appPassword: string; recipient: string; contractAddress: string; tokenId: string }): Promise<{ success: boolean }> => {
   return sendRequest("/send-nft", data);
 };
 
-export const getTransactions = async (): Promise<any> => {
+export const getTransactions = async (): Promise<Array<{ id: string; type: string; amount: number; date: string }>> => {
   return fetch(`${BASE_URL}/get-transactions`, {
     method: "GET",
     headers: {
@@ -43,7 +43,7 @@ export const getTransactions = async (): Promise<any> => {
   });
 };
 
-export const getWalletBalance = async (data: { accountAddr: string }): Promise<any> => {
+export const getWalletBalance = async (data: { accountAddr: string }): Promise<{ balance: number }> => {
   return fetch(`${BASE_URL}/get-wallet-balance`, {
     method: "POST",
     headers: {
@@ -57,7 +57,7 @@ export const getWalletBalance = async (data: { accountAddr: string }): Promise<a
   });
 };
 
-export const getWalletAddress = async (data: { email: string }): Promise<any> => {
+export const getWalletAddress = async (data: { email: string }): Promise<{ address: string }> => {
   return fetch(`${BASE_URL}/get-address`, {
     method: "POST",
     headers: {
