@@ -43,7 +43,10 @@ export const getTransactions = async (): Promise<Array<{ id: string; type: strin
   });
 };
 
-export const getWalletBalance = async (data: { accountAddr: string }): Promise<{ balance: number }> => {
+export const getWalletBalance = async (data: { accountAddr: string }): Promise<{
+  cw20Balance: string;
+  cw721Balance: string[];
+}> => {
   return fetch(`${BASE_URL}/get-wallet-balance`, {
     method: "POST",
     headers: {
@@ -56,6 +59,7 @@ export const getWalletBalance = async (data: { accountAddr: string }): Promise<{
     return res.json();
   });
 };
+
 
 export const getWalletAddress = async (data: { email: string }): Promise<{ address: string }> => {
   return fetch(`${BASE_URL}/get-address`, {
