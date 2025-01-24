@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function MiddleContent() {
   return (
@@ -13,27 +14,25 @@ export default function MiddleContent() {
       </p>
       <p className="text-base text-gray-500">
         If you have already{" "}
-        <a href="/" className="text-blue-600 hover:underline">
-          {" "}
+        <Link href="/" className="text-blue-600 hover:underline">
           Created an account
-        </a>{" "}
+        </Link>{" "}
         , go to{" "}
-        <a href="/transfer" className="text-blue-600 hover:underline">
-          {" "} 
+        <Link href="/transfer" className="text-blue-600 hover:underline">
           Transfer Assets
-        </a>{" "}
+        </Link>{" "}
         or{" "}
-        <a href="/wallet-balance" className="text-blue-600 hover:underline">
+        <Link href="/wallet-balance" className="text-blue-600 hover:underline">
           Check Wallet Balance
-        </a>
+        </Link>
         .
       </p>
       <p className="text-base text-gray-500">
-        Find your created XION address {" "}
-         <a href="/get-wallet-address" className="text-blue-600 hover:underline">
-          {" "}
+        Find your created XION address{" "}
+        <Link href="/get-wallet-address" className="text-blue-600 hover:underline">
           here
-        </a>{"."}
+        </Link>
+        {"."}
       </p>
     </div>
   );
